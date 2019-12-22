@@ -7,6 +7,7 @@ import {Header} from './header.js';
 import {Home} from './home.js';
 import {BookList} from '../components/BookList';
 import {AuthorList} from '../components/AuthorList'
+import {CreateBook} from '../components/CreateBook';
 import BookStore from '../stores/bookStore';
 import AuthorStore from '../stores/authorStore.js';
 
@@ -23,6 +24,22 @@ export class App extends React.Component{
                     success:false,
                     failure:false
                 },
+                createState:{
+                    pending:false,
+                    success:false,
+                    failure:false
+                },
+                updateState:{
+                    pending:false,
+                    success:false,
+                    failure:false
+                },
+                removeState:{
+                    pending:false,
+                    success:false,
+                    failure:false
+                },
+                info: '',
                 error: ''
             },
             author:{
@@ -33,7 +50,8 @@ export class App extends React.Component{
                     failure:false
                 },
                 error: ''
-            }
+            },
+            editType : -1
         }
     }
 
@@ -45,6 +63,9 @@ export class App extends React.Component{
                     <Route exact path='/' component={Home}/>
                     <Route path='/books' render={(props) => (<BookList {...props} book={this.state.book} />)}/>
                     <Route path='/authors' render={(props) => (<AuthorList {...props} author={this.state.author} />)}/>
+                    <Route path='/newBook' render={(props) => (<CreateBook {...props} editType={0} author={this.state.author} book={this.state.book} />)}/>
+                    <Route path='/updateBook' render={(props) => (<CreateBook {...props} editType={1} author={this.state.author} book={this.state.book}/>)}/>
+                    <Route path='/removeBook' render={(props) => (<CreateBook {...props} editType={2} author={this.state.author} book={this.state.book}/>)}/>
                 </Switch>
             </div>
         );

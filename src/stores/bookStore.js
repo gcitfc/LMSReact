@@ -11,6 +11,22 @@ let _bookStore = {
             success:false,
             failure:false
         },
+        createState:{
+            pending:false,
+            success:false,
+            failure:false
+        },
+        updateState:{
+            pending:false,
+            success:false,
+            failure:false
+        },
+        removeState:{
+            pending:false,
+            success:false,
+            failure:false
+        },
+        info: '',
         error: ''
     }
 };
@@ -41,6 +57,30 @@ class BookStoreClass extends EventEmitter{
             failure:false
           }
     }
+
+    resetCreateState(){
+        _bookStore.book.createState = {
+            pending:false,
+            success:false,
+            failure:false
+          }
+    }
+
+    resetUpdateState(){
+        _bookStore.book.updateState = {
+            pending:false,
+            success:false,
+            failure:false
+          }
+    }
+
+    resetRemoveState(){
+        _bookStore.book.removeState = {
+            pending:false,
+            success:false,
+            failure:false
+          }
+    }
 }
 
 const BookStore = new BookStoreClass();
@@ -62,6 +102,57 @@ Dispatcher.register( (action) => {
         case 'read_books_started':
             BookStore.resetReadState();
             _bookStore.book.readState.pending = true;
+            BookStore.emitChange();
+            break;
+        case 'create_book_successful':
+            BookStore.resetCreateState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.createState.success = true;
+            BookStore.emitChange();
+            break;
+        case 'create_book_failure':
+            BookStore.resetCreateState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.createState.failure = true;
+            BookStore.emitChange();
+            break;
+        case 'create_book_started':
+            BookStore.resetCreateState();
+            _bookStore.book.createState.pending = true;
+            BookStore.emitChange();
+            break;
+        case 'update_book_successful':
+            BookStore.resetUpdateState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.updateState.success = true;
+            BookStore.emitChange();
+            break;
+        case 'update_book_failure':
+            BookStore.resetUpdateState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.updateState.failure = true;
+            BookStore.emitChange();
+            break;
+        case 'update_book_started':
+            BookStore.resetUpdateState();
+            _bookStore.book.updateState.pending = true;
+            BookStore.emitChange();
+            break;
+        case 'remove_book_successful':
+            BookStore.resetRemoveState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.removeState.success = true;
+            BookStore.emitChange();
+            break;
+        case 'remove_book_failure':
+            BookStore.resetRemoveState();
+            _bookStore.book.info = action.data;
+            _bookStore.book.removeState.failure = true;
+            BookStore.emitChange();
+            break;
+        case 'remove_book_started':
+            BookStore.resetRemoveState();
+            _bookStore.book.removeState.pending = true;
             BookStore.emitChange();
             break;
         default:

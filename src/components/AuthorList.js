@@ -32,7 +32,6 @@ export class AuthorList extends React.Component{
                 </div>
             );
         }
-        
 
         if(this.props.author.readState.success){
             content = 
